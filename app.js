@@ -3,7 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
-  res.send('Hello World! This application was deployed via Cloud Deploy.');
+  res.send('Hello World! This is version 1.0 running on Cloud Run!');
 });
 
 app.listen(PORT, () => {
