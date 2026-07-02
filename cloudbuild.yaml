@@ -15,11 +15,15 @@ steps:
       - 'releases'
       - 'create'
       - 'release-${SHORT_SHA}'
-      - '--delivery-pipeline=application-delivery-pipeline' # Matches your TF name
+      - '--delivery-pipeline=application-delivery-pipeline'
       - '--region=${_REGION}'
       - '--images=my-app-image=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/my-app:${SHORT_SHA}'
       - '--source=.'
 
 substitutions:
   _REGION: 'us-central1'
-  _AR_REPO: 'my-application-repo' # Make sure you have created an Artifact Registry repository with this name
+  _AR_REPO: 'my-application-repo'
+
+# --- ADD THIS LOGGING OPTION TO FIX THE ERROR ---
+options:
+  logging: CLOUD_LOGGING_ONLY
