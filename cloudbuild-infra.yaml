@@ -1,0 +1,13 @@
+steps:
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
+    entrypoint: 'gcloud'
+    args:
+      - 'infra-manager'
+      - 'deployments'
+      - 'apply'
+      - 'projects/gci-techss-gcp-pjnp-01nl165115/locations/us-central1/deployments/infra-deployment'
+      - '--git-source-repo=https://github.com/mathewnimmy123-sys/my-cloud-deploy-trial.git'
+      - '--git-source-directory=.'
+      - '--git-source-ref=refs/heads/main'
+options:
+  logging: CLOUD_LOGGING_ONLY
