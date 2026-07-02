@@ -1,0 +1,25 @@
+steps:
+  # Step 1: Build the container image using Docker
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/my-app:${SHORT_SHA}', '.']
+
+  # Step 2: Push the image to Google Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/my-app:${SHORT_SHA}']
+
+  # Step 3: Trigger Google Cloud Deploy to release the application
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - 'deploy'
+      - 'releases'
+      - 'create'
+      - 'release-${SHORT_SHA}'
+      - '--delivery-pipeline=application-delivery-pipeline' # Matches your TF name
+      - '--region=${_REGION}'
+      - '--images=my-app-image=${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_AR_REPO}/my-app:${SHORT_SHA}'
+      - '--source=.'
+
+substitutions:
+  _REGION: 'us-central1'
+  _AR_REPO: 'my-application-repo' # Make sure you have created an Artifact Registry repository with this name

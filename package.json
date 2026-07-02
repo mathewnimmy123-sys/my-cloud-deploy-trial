@@ -1,0 +1,12 @@
+{
+  "name": "cloud-deploy-trial",
+  "version": "1.0.0",
+  "description": "Trial app for Cloud Build and Cloud Deploy",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
